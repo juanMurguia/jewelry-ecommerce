@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "example.com",
       "placeholder.pics",
       "hebbkx1anhila5yf.public.blob.vercel-storage.com",
+      "res.cloudinary.com",
     ],
     dangerouslyAllowSVG: true, // Replace with your actual image domain
   },

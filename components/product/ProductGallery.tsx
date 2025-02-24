@@ -1,14 +1,12 @@
 "use client";
-
 import { useState } from "react";
 import Image from "next/image";
-import { Play } from "lucide-react";
 
 export default function ProductGallery({ images }: { images: string[] }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   return (
-    <div className="flex flex-col-reverse">
+    <div className="flex flex-col">
       {/* Main image */}
       <div className="aspect-w-1 aspect-h-1 w-full">
         <Image
@@ -16,7 +14,7 @@ export default function ProductGallery({ images }: { images: string[] }) {
           alt="Product image"
           width={600}
           height={600}
-          className="w-full h-full object-center object-cover rounded-lg shadow-lg"
+          className="w-full h-full object-center object-cover rounded-none shadow-lg"
         />
       </div>
 
@@ -26,7 +24,7 @@ export default function ProductGallery({ images }: { images: string[] }) {
           {images.map((image, index) => (
             <button
               key={image}
-              className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
+              className="relative h-24 bg-white rounded-none flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
               onClick={() => setCurrentImage(index)}
             >
               <span className="sr-only">View image {index + 1}</span>
@@ -35,7 +33,7 @@ export default function ProductGallery({ images }: { images: string[] }) {
                 alt=""
                 width={96}
                 height={96}
-                className="w-full h-full object-center object-cover rounded-md"
+                className="w-full h-full object-center object-cover rounded-none"
               />
             </button>
           ))}

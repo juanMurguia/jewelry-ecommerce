@@ -32,7 +32,7 @@ export async function findOrCreateAuth(email: string) {
 
 export async function sendCode(email: string) {
   const auth = await findOrCreateAuth(email);
-  const code = random(10000, 99999);
+  const code = Math.floor(Math.random() * 90000) + 10000;
   const now = new Date();
   const twentyMinutesFromNow = addMinutes(now, 20);
   auth.data.code = code;

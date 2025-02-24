@@ -1,35 +1,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <div className="min-h-screen bg-black text-white w-full ">
-      <div className="relative w-full flex flex-col min-h-[80vh] items-center justify-center px-4">
-        <div className="relative">
-          <div className="text-center">
-            <Image
-              src="/hero-section.webp"
-              alt="Meet the glamour"
-              width={500}
-              height={800}
-              className="object-contain w-full h-full ratio-4/5"
-            />
+    <div className="min-h-screen text-white w-full bg-[url('/bg-hero.webp')] bg-cover bg-center bg-no-repeat">
+      <div className="relative w-full flex flex-col min-h-[100vh] items-center justify-end sm:justify-end px-4 py-30 sm:py-20 gap-8">
+        <div className="flex flex-col sm:flex-col w-full justify-center items-center gap-8 ">
+          <h1 className="text-4xl sm:text-6xl font-serif text-center">
+            Meet the glamour.
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/products">
+              <Button
+                variant="primary"
+                className="flex w-full sm:w-auto text-center  justify-center gap-2 border-1 border-[#DBA958] text-gray-950  !bg-[#DBA958] hover:!bg-white cursor-pointer no-underline "
+              >
+                Discover Collections
+                <ArrowRight></ArrowRight>
+              </Button>
+            </Link>
+            <Link href="#about-us">
+              <Button
+                variant="outline"
+                className="border-white w-full sm:w-auto text-center bg-transparent text-white hover:bg-white hover:text-black cursor-pointer"
+              >
+                Learn our history
+              </Button>
+            </Link>
           </div>
-        </div>
-        <div className="bottom-12 left-0 flex w-full justify-center space-x-4 gap-4">
-          <Button
-            variant="outline"
-            className="border-white bg-white text-gray-950 hover:bg-white cursor-pointer"
-          >
-            CHOOSING JEWELRY
-          </Button>
-          <Button
-            variant="outline"
-            className="border-white bg-transparent text-white hover:bg-white hover:text-black cursor-pointer"
-          >
-            LEARN THE HISTORY
-          </Button>
         </div>
       </div>
     </div>

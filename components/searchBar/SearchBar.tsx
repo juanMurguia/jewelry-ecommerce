@@ -1,45 +1,88 @@
 "use client";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Search, X } from "lucide-react";
 
 function SearchBar({ onSearch }: { onSearch?: (data: any) => void }) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const [query, setQuery] = useState(searchParams.get("q") || "");
-  const [limit] = useState(searchParams.get("limit") || "5");
-  const [offset, setOffset] = useState(searchParams.get("offset") || "0");
-
-  useEffect(() => {
-    if (onSearch) {
-      // You may use onSearch to trigger external data updates
-      onSearch({ q: query, limit, offset });
-    }
-  }, [query, offset, onSearch]);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/search?q=${query}&limit=${limit}&offset=0`);
+    if (query.trim()) {
+      router.push(`/search?q=${query}`);
+      setIsExpanded(false);
+    }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setIsExpanded(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsExpanded(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   return (
-    <div className="flex justify-center">
+    <div
+      ref={searchRef}
+      className="relative flex items-center search-container rounded-full"
+    >
+      {/* Search Icon Button */}
+      <button
+        onClick={() => setIsExpanded(true)}
+        className="text-gray-400 hover:text-amber-200 transition"
+      >
+        <Search className="w-5 h-5 cursor-pointer" />
+      </button>
+
+      {/* Expanding Search Input */}
       <form
         onSubmit={handleSubmit}
-        className="flex items-center border gap-3 px-4 border-gray-500 w-50 max-w-md bg-transparent rounded-none shadow-sm"
+        className="flex items-center transition-all duration-300 overflow-hidden"
       >
-        <Search className="text-gray-500 w-5 h-5" />
-        <input
-          type="search"
-          placeholder="Search..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="w-full px-3 py-1 text-gray-200 rounded-none focus:outline-none"
-          required
-        />
-        <button type="submit" className="hidden" aria-label="Search" />
+        <div
+          className={`relative flex items-center bg-transparent border-b border-gray-500 transition-all duration-300 ${
+            isExpanded ? "max-w-48 opacity-100 px-2 py-1" : "max-w-0 opacity-0"
+          }`}
+        >
+          <input
+            type="search"
+            placeholder="Search..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="bg-transparent text-white focus:outline-none w-full"
+            autoFocus={isExpanded}
+          />
+          {isExpanded && (
+            <button
+              type="button"
+              onClick={() => setIsExpanded(false)}
+              className="text-gray-400 hover:text-white ml-2 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

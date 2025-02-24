@@ -5,7 +5,7 @@ import Layout from "@/components/layout";
 const LoginPage = () => {
   return (
     <Layout>
-      <div className="flex flex-col gap-8 justify-center items-center mx-auto text-center">
+      <div className="w-full flex flex-col gap-8 justify-center items-center mx-auto text-center min-h-dvh">
         <Login />
       </div>
     </Layout>

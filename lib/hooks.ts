@@ -32,6 +32,15 @@ export function useGetProduct(id: string) {
   };
 }
 
+export function useGetAllProducts() {
+  const { data, error } = useSWR("/products/all", fetchAPI);
+  return {
+    products: data?.hits,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
 export function useSearch(searchParams: any) {
   const api = `/search?q=${searchParams.q}&limit=${searchParams.limit}&offset=${searchParams.offset}`;
   const { data, error, isLoading } = useSWR(

@@ -1,32 +1,12 @@
+import { useSearch } from "@/lib/hooks";
 import Image from "next/image";
 
-export default function RelatedProducts({
-  tags,
-  currentProductId,
-}: {
+export default function RelatedProducts({}: {
   tags: string[];
   currentProductId: string;
 }) {
-  const relatedProducts = [
-    {
-      id: "prod002",
-      name: "Product 2",
-      price: 999.99,
-      image: "https://placeholder.pics/svg/300x300",
-    },
-    {
-      id: "prod003",
-      name: "Product 3",
-      price: 1499.99,
-      image: "https://placeholder.pics/svg/300x300",
-    },
-    {
-      id: "prod004",
-      name: "Product 4",
-      price: 799.99,
-      image: "https://placeholder.pics/svg/300x300",
-    },
-  ];
+  const { data } = useSearch({ q: "featured", limit: 3, offset: 0 });
+  const relatedProducts = data?.products?.results[0]?.hits || [];
 
   return (
     <div className="border-t border-gray-200 py-8">
@@ -38,7 +18,7 @@ export default function RelatedProducts({
           <div key={product.id} className="group relative">
             <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
               <Image
-                src={product.image || "/placeholder.svg"}
+                src={product.images[0] || "/placeholder.svg"}
                 alt={product.name}
                 width={300}
                 height={300}

@@ -8,12 +8,9 @@ export default function FeaturedProducts() {
   const products = data?.products?.results[0]?.hits || [];
 
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto flex flex-col gap-8">
-        <h2 className="text-2xl text-gray-100 font-light text-center mb-12">
-          Featured Treasures
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="py-16 my-0 sm:my-16 px-16 min-h-dvh flex ">
+      <div className="mx-auto flex justify-start flex-col-reverse sm:flex-row sm:justify-center items-center ">
+        <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product) => (
             <Link
               href={`/products/${product.objectID}`}
@@ -22,7 +19,9 @@ export default function FeaturedProducts() {
             >
               <div className="relative h-64">
                 <Image
-                  src={product.image || "https://placeholder.pics/svg/300x300"}
+                  src={
+                    product.images[0] || "https://placeholder.pics/svg/300x300"
+                  }
                   alt={product.name}
                   layout="fill"
                   objectFit="cover"
@@ -30,10 +29,10 @@ export default function FeaturedProducts() {
                 />
               </div>
               <div className="flex flex-col gap-1 pt-2">
-                <h3 className="text-md text-gray-100 mb-2 uppercase">
+                <h3 className="text-md text-gray-300 uppercase">
                   {product.name}
                 </h3>
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-400">
                     ${product.price.toFixed(2)}
                   </span>
@@ -42,6 +41,9 @@ export default function FeaturedProducts() {
             </Link>
           ))}
         </div>
+        <h2 className="text-4xl font-serif text-gray-100 font-light text-center sm:text-right mb-12">
+          Our Featured Treasures.
+        </h2>
       </div>
     </section>
   );
