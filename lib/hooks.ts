@@ -1,9 +1,5 @@
 import useSWR from "swr";
-import useSWRImmutable from "swr/immutable";
 import { fetchAPI, fetchApiAuth, getSavedToken } from "./api";
-import { useSetRecoilState } from "recoil";
-import { userState } from "./recoil";
-import { Auth } from "./auth";
 
 type Order = {
   cantidad?: number;
@@ -56,13 +52,13 @@ export async function useOrder(product: any, options: { cantidad: number }) {
   const api = `/api/order?productId=${product.objectID}`;
   const token = await getSavedToken();
 
-  const option = {
+  const option: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    credentials: "include",
+    credentials: "include", // Ensure the credentials are correctly set
     body: JSON.stringify({
       productId: product.objectID,
       productName: product.name,

@@ -1,8 +1,7 @@
-const BASE_URL = "http://localhost:3000/api/";
-const API_URL = process.env.NEXT_PUBLIC_PORT || "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 
-export async function fetchAPI(input: RequestInfo, options) {
-  const url = BASE_URL + input;
+export async function fetchAPI(input: string, options) {
+  const url = `${BASE_URL}/${input.replace(/^\/+/, "")}`;
   const token = await getSavedToken();
   const newOptions: any = options || {};
   newOptions.headers = newOptions.headers || {};
@@ -50,18 +49,20 @@ export async function getSavedToken() {
   return localStorage.getItem("auth_token");
 }
 
-export async function fetchApiAuth(api: any) {
-  const option = api[1] || {};
+export async function fetchApiAuth(api: [string, RequestInit?]) {
+  const [urlPath, options = {}] = api;
 
-  if (api) {
-    try {
-      const response = await fetch(API_URL + api[0], option);
-      const data = await response.json();
-      if (data) {
-        return data;
-      }
-    } catch (e) {
-      return "Algo salió mal";
+  try {
+    const response = await fetch(BASE_URL + urlPath, options);
+    const data = await response.json();
+
+    if (data) {
+      return data;
     }
+
+    throw new Error("No data received");
+  } catch (e) {
+    console.error(e); // Log the error for debugging
+    return "Algo salió mal"; // Return a generic error message
   }
 }
