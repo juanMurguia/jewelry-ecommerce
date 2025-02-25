@@ -5,8 +5,8 @@ import { addMinutes } from "date-fns/addMinutes";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-var seed = "asasdasd";
-var random = gen.create(seed);
+const seed = "asasdasd";
+const random = gen.create(seed);
 
 export async function findOrCreateAuth(email: string) {
   const cleanEmail = email.trim().toLowerCase();

@@ -14,8 +14,8 @@ export default function ThankYouPage() {
             Thank You for Your Purchase
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            We're thrilled that you've chosen our jewelry. Your order has been
-            received and is being processed.
+            We&apos;re thrilled that you&apos;ve chosen our jewelry. Your order
+            has been received and is being processed.
           </p>
 
           <div className="space-y-4">

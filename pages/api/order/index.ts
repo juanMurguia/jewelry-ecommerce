@@ -12,10 +12,16 @@ const cors = Cors({
   allowedHeaders: ["Authorization", "Content-Type"],
 });
 
+type MiddlewareFn = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  next: (result?: any) => void
+) => void;
+
 function runMiddleware(
   req: NextApiRequest,
   res: NextApiResponse,
-  fn: Function
+  fn: MiddlewareFn
 ) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {

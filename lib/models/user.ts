@@ -7,10 +7,11 @@ class User {
   data: FirebaseFirestore.DocumentData;
   constructor(id) {
     this.ref = collection.doc(id);
+    this.data = {};
   }
   async pull() {
     const snap = await this.ref.get();
-    this.data = snap.data();
+    this.data = snap.data() || {};
   }
   async push() {
     this.ref.update(this.data);
@@ -23,7 +24,7 @@ class User {
     });
     const docData = await newDoc.get();
     const userData = docData.data();
-    const userEmail = userData.email;
+    const userEmail = userData?.email;
     const userID = docData.id;
     return { userEmail, userID };
   }
@@ -56,7 +57,7 @@ class User {
       const updatedDoc = await docRef.get();
       return updatedDoc.data();
     } else {
-      null;
+      return null;
     }
   }
   static async updateAddress(body) {
@@ -85,7 +86,7 @@ class User {
       const updatedDoc = await docRef.get();
       return updatedDoc.data();
     } else {
-      null;
+      return null;
     }
   }
 }

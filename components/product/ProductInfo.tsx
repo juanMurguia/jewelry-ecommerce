@@ -8,11 +8,11 @@ export default function ProductInfo({ product }: { product: any }) {
   const router = useRouter();
 
   const [orderResData, setOrderResData] = useState<any>(null);
+  const data = useOrder(product, { cantidad: 1 });
 
   useEffect(() => {
     async function fetchOrder() {
       if (!product) return;
-      const data = await useOrder(product, { cantidad: 1 });
       setOrderResData(data);
     }
     fetchOrder();

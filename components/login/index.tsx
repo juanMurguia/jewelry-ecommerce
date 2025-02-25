@@ -117,7 +117,7 @@ export function Login() {
               onClick={() => setIsEmailSent(false)}
               className="text-gray-400 hover:text-gray-200 cursor-pointer"
             >
-              I didn't receive a code
+              <p>I didn&apos;t receive a code</p>
             </button>
           ) : (
             "We'll send a login code to your email"

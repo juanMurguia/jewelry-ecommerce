@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "lib/middleware";
 import { handler, updateData } from "lib/controllers/user";
-const methods = require("micro-method-router");
+import * as methods from "micro-method-router";
 
 export default async function corsHandler(
   req: NextApiRequest,

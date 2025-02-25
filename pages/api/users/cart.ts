@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-const methods = require("micro-method-router");
+import * as methods from "micro-method-router";
 
 export default methods({
   async post(req: NextApiRequest, res: NextApiResponse) {

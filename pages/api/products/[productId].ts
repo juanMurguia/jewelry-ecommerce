@@ -1,6 +1,6 @@
 import { findProductById } from "lib/controllers/products";
 import type { NextApiRequest, NextApiResponse } from "next";
-const methods = require("micro-method-router");
+import * as methods from "micro-method-router";
 
 export default methods({
   async get(req: NextApiRequest, res: NextApiResponse) {

@@ -9,8 +9,8 @@ export default function ThankYouPage() {
         <div className="flex flex-col gap-8 items-center mx-auto text-center">
           <h1 className="text-4xl text-yellow-400 mb-4">Payment Pending</h1>
           <p className="text-xl text-gray-300 mb-8">
-            Your payment is being processed. This may take a few minutes. We'll
-            notify you once it's confirmed.
+            Your payment is being processed. This may take a few minutes.
+            We&apos;ll notify you once it&apos;s confirmed.
           </p>
 
           <div className="space-y-4">

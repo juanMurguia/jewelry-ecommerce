@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { generate, verify } from "lib/jwt";
 import { Auth } from "lib/auth";
-const methods = require("micro-method-router");
+import * as methods from "micro-method-router";
 
 export default methods({
   async post(req, res) {

@@ -4,13 +4,14 @@ const collection = firestore.collection("orders");
 
 class Order {
   ref: FirebaseFirestore.DocumentReference;
-  data: FirebaseFirestore.DocumentData;
+  data: FirebaseFirestore.DocumentData = {};
   constructor(id) {
     this.ref = collection.doc(id);
+    this.data = {};
   }
   async pull() {
     const snap = await this.ref.get();
-    this.data = snap.data();
+    this.data = snap.data() || {};
   }
   async push() {
     this.ref.update(this.data);
