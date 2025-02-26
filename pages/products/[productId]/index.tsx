@@ -4,15 +4,14 @@ import ProductInfo from "@/components/product/ProductInfo";
 import ProductSpecs from "@/components/product/ProductSpecs";
 import ProductReviews from "@/components/product/ProductReviews";
 import RelatedProducts from "@/components/product/RelatedProducts";
-import { useGetProduct } from "@/lib/hooks";
+import { useGetProduct, useMe } from "@/lib/hooks";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
 import RootLayout from "@/components/layout";
 
 export default function ProductPage() {
   const router = useRouter();
   const { productId } = router.query;
-
+  const user = useMe();
   const { product, isLoading, isError } = useGetProduct(productId as string);
 
   if (isLoading) {
@@ -31,8 +30,8 @@ export default function ProductPage() {
           <ProductGallery images={product.images} />
 
           {/* Right column */}
-          <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-            <ProductInfo product={product} />
+          <div className="mt-10  sm:px-0 sm:mt-16 lg:mt-0">
+            <ProductInfo product={product} user={user} />
           </div>
         </div>
 

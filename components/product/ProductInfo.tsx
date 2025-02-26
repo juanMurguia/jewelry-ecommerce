@@ -3,11 +3,18 @@ import { Star, Truck, RotateCcw } from "lucide-react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-export default function ProductInfo({ product }: { product: any }) {
+export default function ProductInfo({
+  product,
+  user,
+}: {
+  product: any;
+  user: any;
+}) {
   const discountedPrice = product.price * (1 - product.discount / 100);
   const router = useRouter();
 
   const [orderResData, setOrderResData] = useState<any>(null);
+  const [showPopup, setShowPopup] = useState(false);
   const data = useOrder(product, { cantidad: 1 });
 
   useEffect(() => {
@@ -20,10 +27,14 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const handleClick = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      setShowPopup(true);
+      return;
+    }
     if (orderResData?.init_point) {
       router.push(orderResData.init_point);
     } else {
-      console.log("No init_point found", orderResData);
+      setShowPopup(true);
     }
   };
 
@@ -97,6 +108,22 @@ export default function ProductInfo({ product }: { product: any }) {
       >
         {orderResData ? "Buy" : "Loading..."}
       </button>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-black px-16 py-8 rounded-sm shadow-md text-center">
+            <p className="text-lg font-semibold">
+              You must be logged in to buy!
+            </p>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="mt-4 bg-amber-200 border border-transparent  py-2 px-4 text-gray-900 hover:bg-amber-300 cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
