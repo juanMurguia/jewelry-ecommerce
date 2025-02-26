@@ -7,7 +7,7 @@ export default function AboutUs() {
         <div className="grid gap-12 md:grid-cols-2">
           {/* Left Column */}
           <div className="space-y-12">
-            <h2 className="font-serif text-4xl leading-tight md:text-5xl lg:text-6xl">
+            <h2 className="font-serif text-gray-100 text-4xl leading-tight md:text-5xl lg:text-6xl">
               Jewelry carries a powerful story.
             </h2>
             <div className="grid gap-8 md:grid-cols-2">
@@ -15,7 +15,7 @@ export default function AboutUs() {
                 <h3 className="font-serif pb-3 text-lg font-medium tracking-widest">
                   GOLD
                 </h3>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-gray-200">
                   Her provision acuteness had two why intention.
                 </p>
               </div>
@@ -23,7 +23,7 @@ export default function AboutUs() {
                 <h3 className="font-serif pb-3 text-lg font-medium tracking-widest">
                   SILVER
                 </h3>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-gray-200">
                   Her provision acuteness had two why intention.
                 </p>
               </div>
@@ -34,7 +34,7 @@ export default function AboutUs() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h3 className="font-serif text-lg font-medium">Our Story</h3>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-200">
                 Modern jewelry is made of gold, silver, or platinum, often with
                 precious or semiprecious stones.
               </p>

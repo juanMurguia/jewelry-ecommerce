@@ -9,7 +9,12 @@ export default function FeaturedProducts() {
 
   return (
     <section className="py-16 my-0 sm:my-16 px-16 min-h-dvh flex ">
-      <div className="mx-auto flex justify-start flex-col-reverse sm:flex-row sm:justify-center items-center ">
+      <div className="mx-auto flex justify-start flex-col sm:flex-row-reverse sm:justify-center items-center ">
+        {/* Place <h2> BEFORE the products */}
+        <h2 className="text-4xl font-serif text-gray-100 font-light text-center sm:text-right mb-12">
+          Our Featured Treasures.
+        </h2>
+
         <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product) => (
             <Link
@@ -29,11 +34,11 @@ export default function FeaturedProducts() {
                 />
               </div>
               <div className="flex flex-col gap-1 pt-2">
-                <h3 className="text-md text-gray-300 uppercase">
+                <h3 className="text-md text-gray-200 uppercase">
                   {product.name}
                 </h3>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-gray-300">
                     ${product.price.toFixed(2)}
                   </span>
                 </div>
@@ -41,9 +46,6 @@ export default function FeaturedProducts() {
             </Link>
           ))}
         </div>
-        <h2 className="text-4xl font-serif text-gray-100 font-light text-center sm:text-right mb-12">
-          Our Featured Treasures.
-        </h2>
       </div>
     </section>
   );

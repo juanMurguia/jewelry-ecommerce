@@ -50,6 +50,7 @@ function SearchBar({ onSearch }: { onSearch?: (data: any) => void }) {
       {/* Search Icon Button */}
       <button
         onClick={() => setIsExpanded(true)}
+        aria-label="Search products"
         className="text-gray-400 hover:text-amber-200 transition"
       >
         <Search className="w-5 h-5 cursor-pointer" />

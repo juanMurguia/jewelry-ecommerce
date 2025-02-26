@@ -23,7 +23,7 @@ export default function Header() {
 
   return (
     <header className="fixed px-8 w-full mx-32 sm:w-auto z-50 my-4 border-0 sm:border-1 border-gray-600 rounded-lg sm:rounded-full backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-6 lg:px-10">
-      <div className="mx-auto flex items-center justify-between h-10 gap-16">
+      <div className="mx-auto flex items-center justify-between h-10 sm:gap-16 gap-6">
         <Link
           href="/"
           className="font-serif hidden font-light cursor-pointer text-sm italic !stretch-150% sm:inline-block"
@@ -65,6 +65,7 @@ export default function Header() {
 
         <div className="sm:hidden flex items-center w-full justify-between">
           <button
+            aria-label="Menu"
             className="text-gray-200 hover:text-amber-200"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -75,8 +76,8 @@ export default function Header() {
         </div>
 
         {!user?.userData && (
-          <Link href="/login">
-            <button className="cursor-pointer border-0 text-sm !font-light !bg-transparent !text-gray-200 hover:!text-amber-200">
+          <Link href="/login" className=" px-2 py-2">
+            <button className="cursor-pointer whitespace-nowrap w-full border-0 text-sm !font-light !bg-transparent !text-gray-200 hover:!text-amber-200">
               Log in
             </button>
           </Link>
@@ -102,19 +103,19 @@ export default function Header() {
         <div className="sm:hidden h-[90dvh] flex flex-col items-center  py-16 gap-16 ">
           <Link
             href="/"
-            className="flex items-center hover:!text-amber-200 text-md"
+            className="flex items-center hover:!text-amber-200 text-lg"
           >
             <h2>Home</h2>
           </Link>
           <Link
             href="/products"
-            className="flex items-center hover:!text-amber-200 text-md"
+            className="flex items-center hover:!text-amber-200 text-lg"
           >
             <h2>Products</h2>
           </Link>
           <Link
             href="/#about-us"
-            className="flex items-center hover:!text-amber-200 text-md"
+            className="flex items-center hover:!text-amber-200 text-lg"
           >
             <h2>Our Story</h2>
           </Link>
