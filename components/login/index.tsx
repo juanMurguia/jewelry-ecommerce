@@ -1,14 +1,18 @@
 import { useRef, useState } from "react";
-import { sendCode, getToken } from "@/lib/api";
+import { sendCode, getToken, fetchAPI } from "@/lib/api";
 import Router from "next/router";
 import Button from "@/components/ui/Button";
 import { Mail, Lock } from "lucide-react";
+import { refreshUser, useMe } from "@/lib/hooks";
+import { userAtom } from "@/lib/Atoms/userAtom";
+import { useAtom } from "jotai";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [codeExists, setCodeExists] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
+  const [user, setUser] = useAtom(userAtom);
 
   async function handleEmailForm(e: any) {
     e.preventDefault();
@@ -23,11 +27,12 @@ export function Login() {
     console.log("Formulario enviado");
   }
 
-  async function handleCodeForm(e) {
+  async function handleCodeForm(e: any) {
     e.preventDefault();
     const code = e.target.code.value;
     try {
-      getToken(email, code);
+      await getToken(email, code);
+      refreshUser();
       Router.push("/");
     } catch (e) {
       console.log(e);
@@ -82,7 +87,7 @@ export function Login() {
             </Button>
           </form>
         ) : (
-          <form onSubmit={handleCodeForm} className="rounded-lg p-8">
+          <form onSubmit={handleCodeForm} className="rounded-lg">
             <div className="pb-4">
               <label
                 htmlFor="code"

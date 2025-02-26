@@ -6,23 +6,34 @@ import { useRouter } from "next/router";
 import { useMe } from "@/lib/hooks";
 import SearchBar from "../searchBar/SearchBar";
 import { MenuIcon, X } from "lucide-react";
+import { userAtom } from "@/lib/Atoms/userAtom";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import { mutate } from "swr";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const user = useMe();
+  const [user, setUser] = useAtom(userAtom);
+  const fetchedUser = useMe(); // Fetch user data
   const router = useRouter();
+
+  useEffect(() => {
+    if (fetchedUser) {
+      setUser(fetchedUser);
+    }
+  }, [fetchedUser]);
 
   const handleLogout = () => {
     localStorage.removeItem("auth_token");
+    setUser(null);
+    mutate("/me", null, { revalidate: false });
     router.push("/logout");
   };
 
-  const getUsername = (email) => {
-    return email.split("@")[0];
-  };
+  const getUsername = (email) => email.split("@")[0];
 
   return (
-    <header className="fixed px-8 w-full mx-32 sm:w-auto z-50 my-4 border-0 sm:border-1 border-gray-600 rounded-lg sm:rounded-full backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-6 lg:px-10">
+    <header className="fixed px-8 w-full mx-32 sm:w-auto z-50 py-4 sm:py-0 sm:my-4 border-0 sm:border-1 border-gray-600 rounded-lg sm:rounded-full backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-6 lg:px-10">
       <div className="mx-auto flex items-center justify-between h-10 sm:gap-16 gap-6">
         <Link
           href="/"
@@ -100,34 +111,34 @@ export default function Header() {
       </div>
 
       {isMenuOpen && (
-        <div className="sm:hidden h-[90dvh] flex flex-col items-center  py-16 gap-16 ">
+        <div className="sm:hidden h-[95dvh] flex flex-col items-center  py-16 gap-16 ">
           <Link
             href="/"
-            className="flex items-center hover:!text-amber-200 text-lg"
+            className="flex items-center hover:!text-amber-200 text-3xl"
           >
             <h2>Home</h2>
           </Link>
           <Link
             href="/products"
-            className="flex items-center hover:!text-amber-200 text-lg"
+            className="flex items-center hover:!text-amber-200 text-3xl"
           >
             <h2>Products</h2>
           </Link>
           <Link
             href="/#about-us"
-            className="flex items-center hover:!text-amber-200 text-lg"
+            className="flex items-center hover:!text-amber-200 text-3xl"
           >
             <h2>Our Story</h2>
           </Link>
 
           {user?.userData && (
             <div className="flex flex-col items-center mt-auto">
-              <span className="text-md">
+              <span className="text-xl cursor-default">
                 {"@"}
                 {getUsername(user?.userData?.email)}
               </span>
               <button
-                className="text-md text-gray-400 hover:text-amber-200 cursor-pointer"
+                className="text-lg text-gray-400 hover:text-amber-200 cursor-pointer"
                 onClick={handleLogout}
               >
                 Log out

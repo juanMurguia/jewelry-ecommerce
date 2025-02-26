@@ -1,18 +1,25 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetchAPI, fetchApiAuth, getSavedToken } from "./api";
-
-type Order = {
-  cantidad?: number;
-};
+import { useAtom } from "jotai";
+import { userAtom } from "./Atoms/userAtom";
 
 export function useMe() {
-  const { data, error } = useSWR("/me", fetchAPI);
+  const [user, setUser] = useAtom(userAtom);
+  const { data, error } = useSWR("/me", fetchAPI, {
+    revalidateOnFocus: false,
+  });
 
-  if (error) {
-    return error;
+  // Only update the atom if the user is logged in
+  if (data && !error && data !== user) {
+    setUser(data);
   }
 
   return data;
+}
+
+// Helper function to force refetch
+export function refreshUser() {
+  mutate("/me");
 }
 
 export function useGetProduct(id: string) {
