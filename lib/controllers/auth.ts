@@ -39,17 +39,15 @@ export async function sendCode(email: string) {
   auth.data.expires = twentyMinutesFromNow;
 
   await auth.push();
-  console.log("email enviado a" + email + "con codigo " + auth.data.code);
   try {
-    await resend.emails.send({
+    const data = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
       subject: "Your Authentication Code",
       html: `<p>Your verification code is: <strong>${code}</strong></p><p>This code expires in 20 minutes.</p>`,
     });
-
-    console.log(`Email sent to ${email} with code ${auth.data.code}`);
-    return true;
+    console.log(data);
+    return "Email sent successfully";
   } catch (error) {
     console.error("Failed to send email:", error);
     return false;

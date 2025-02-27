@@ -14,7 +14,7 @@ import { mutate } from "swr";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useAtom(userAtom);
-  const fetchedUser = useMe(); // Fetch user data
+  const fetchedUser = useMe();
   const router = useRouter();
 
   useEffect(() => {

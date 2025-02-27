@@ -57,8 +57,6 @@ export default async function corsHandler(
 
         const { userID } = await authMiddleware(req, res, handler);
 
-        console.log("User ID:", userID);
-
         const foundProduct = await algoliaClient.getObject({
           indexName: "products",
           objectID: productId.toString(),

@@ -56,7 +56,7 @@ export function useSearch(searchParams: any) {
 export async function useOrder(product: any, options: { cantidad: number }) {
   if (!product?.objectID) return null;
 
-  const api = `/api/order?productId=${product.objectID}`;
+  const api = `/order?productId=${product.objectID}`;
   const token = await getSavedToken();
 
   const option: RequestInit = {
@@ -65,7 +65,7 @@ export async function useOrder(product: any, options: { cantidad: number }) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    credentials: "include", // Ensure the credentials are correctly set
+    credentials: "include",
     body: JSON.stringify({
       productId: product.objectID,
       productName: product.name,

@@ -1,3 +1,4 @@
+import { getSavedToken } from "@/lib/api";
 import { useOrder } from "@/lib/hooks";
 import { Star, Truck, RotateCcw } from "lucide-react";
 import { useRouter } from "next/router";
@@ -15,12 +16,19 @@ export default function ProductInfo({
 
   const [orderResData, setOrderResData] = useState<any>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const data = useOrder(product, { cantidad: 1 });
 
   useEffect(() => {
     async function fetchOrder() {
       if (!product) return;
-      setOrderResData(data);
+
+      try {
+        const orderData = await useOrder(product, { cantidad: 1 });
+        if (orderData) {
+          setOrderResData(orderData);
+        }
+      } catch (error) {
+        console.error("Error fetching order:", error);
+      }
     }
     fetchOrder();
   }, [product]);
@@ -31,10 +39,9 @@ export default function ProductInfo({
       setShowPopup(true);
       return;
     }
+
     if (orderResData?.init_point) {
       router.push(orderResData.init_point);
-    } else {
-      setShowPopup(true);
     }
   };
 
